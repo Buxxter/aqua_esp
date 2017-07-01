@@ -1,0 +1,15 @@
+<b>MQTT topic ID : </b>{{$ config.MQTT_MAINTOPIC }}<br>
+<b>RELAY_1: </b>{{$ gpio.read(config.RELAY_1) }}<a href=?relay_1=1><button>ON</button></a>&nbsp;<a href=?relay_1=0><button>OFF</button></a><br>
+<b>RELAY_2: </b>{{$ gpio.read(config.RELAY_2) }}<a href=?relay_2=1><button>ON</button></a>&nbsp;<a href=?relay_2=0><button>OFF</button></a><br>
+<b>RELAY_3: </b>{{$ gpio.read(config.RELAY_3) }}<a href=?relay_3=1><button>ON</button></a>&nbsp;<a href=?relay_3=0><button>OFF</button></a><br>
+<b>RELAY_4: </b>{{$ gpio.read(config.RELAY_4) }}<a href=?relay_4=1><button>ON</button></a>&nbsp;<a href=?relay_4=0><button>OFF</button></a><br>
+
+<br>
+{{$ html_utils.get_cron_table() }}
+<br><br>
+{{$ rtc.get_formatted_time_string() }}
+<br><br>
+<b>MAC Address : </b>{{$ wifi.sta.getmac() }}<br>
+<b>Chip ID : </b>{{$ node.chipid() }}<br>
+<!-- <b>Heap Size : </b>{{$ node.heap() }}<br> -->
+<a href=?do=restart><button>restart</button></a>

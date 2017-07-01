@@ -1,6 +1,6 @@
 local module = {}
 
-module.debug = true
+module.debug = false
 
 local function debug(message)
 	if module.debug then
@@ -37,7 +37,10 @@ end
 
 function module.match_part(mask, val)
 	debug(string.format("Checking %s ? %s", mask, val))
-	if mask == '*' then return true end
+	-- print("Heap: " .. node.heap())
+	if mask == '*' then 
+		return true 
+	end
 
 	-- полное соответствие
 	if tonumber(mask) and tonumber(mask) == val then
@@ -46,9 +49,9 @@ function module.match_part(mask, val)
 	end
 
 	--[[ 
-		перечисленные через "," значения 
-		(сразу после полного соответствия, 
-		чтобы работали, например, перечисления интервалов)
+		-- перечисленные через "," значения 
+		-- (сразу после полного соответствия, 
+		-- чтобы работали, например, перечисления интервалов)
 	--]]
 	if string.find(mask, ',') then
 		for w in string.gmatch(mask, "([%d%-]+)") do
@@ -91,18 +94,18 @@ function module.match(mask, timeHash)
 	end
 
 	--[[
-	if min and module.match_part(min, timeHash["min"]) then
-		if module.match_part(hour, timeHash["hour"]) then
-			if module.match_part(day, timeHash["day"]) then
-				if module.match_part(mon, timeHash["mon"]) then
-					if module.match_part(year, timeHash["year"]) then
-						debug("...true")
-						return true
-					end
-				end
-			end
-		end
-	end
+	-- if min and module.match_part(min, timeHash["min"]) then
+	-- 	if module.match_part(hour, timeHash["hour"]) then
+	-- 		if module.match_part(day, timeHash["day"]) then
+	-- 			if module.match_part(mon, timeHash["mon"]) then
+	-- 				if module.match_part(year, timeHash["year"]) then
+	-- 					debug("...true")
+	-- 					return true
+	-- 				end
+	-- 			end
+	-- 		end
+	-- 	end
+	-- end
 	]]--
 
 	debug("...false")

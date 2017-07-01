@@ -42,11 +42,16 @@ end
 
 local function after_network_connected()
     -- load_lib("ota")
-    if config.TELNET then load_lib("telnet") end
-    mqttc = require("mqtt_client")
+    if config.TELNET then 
+        load_lib("telnet") 
+    else
+        load_lib("ota")
+    end
+
+    -- mqttc = require("mqtt_client")
     rtc = require("rtc_sync")
     rtc.sync()
-    mqttc.start()
+    -- mqttc.start()
 end
 
 local function wifi_watch() 

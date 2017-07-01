@@ -4,7 +4,9 @@ local function cron_tick()
 	tm = rtctime.epoch2cal(rtctime.get() + config.TIMEZONE * 3600)
 	for task,ct in pairs(CRONTABLE) do
 		if cronutil.match(ct.mask, tm) then
+			print('Running task ' .. task)
 			ct.callback()
+			ct.last = rtc.get_formatted_time_string(tm)
 		end
 	end
 end
@@ -30,7 +32,7 @@ function module.tasks( ... )
 	local counter = 0
 	for k,v in pairs(CRONTABLE) do
 		counter = counter + 1
-		result[counter] = k .. " | " .. v.mask .. " | " .. (v.enabled and "enabled" or "disabled")
+		result[counter] = {k, v.mask, (v.enabled and "enabled" or "disabled"), v.last}
 	end
 	return result
 end
@@ -38,8 +40,9 @@ end
 function module.print_tasks( ... )
 	local tasklist = module.tasks()
 	for i = 1, #tasklist do
-		print(tasklist[i])
+		print(string.format("| %s | %s | %s | %s |", tasklist[i][1], tasklist[i][2], tasklist[i][3], tasklist[i][4]))
 	end
 end
+
 
 return module

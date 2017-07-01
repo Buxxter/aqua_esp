@@ -42,6 +42,18 @@ local function mqtt_start()
     end) 
 end
 
+function module.publish(topic, pl)
+    -- print(topic, pl)
+    if m == nil or topic == nil or pl == nil then
+        print('mqtt isn\'t connected')
+        return false
+    end
+
+    return m:publish(config.MQTT_MAINTOPIC .. '/' .. topic, pl, 0, 0, function (m)
+        print('MQTT->: ' .. topic .. ' ' .. pl)
+    end)
+end
+
 function module.start()
 	mqtt_start()
 end

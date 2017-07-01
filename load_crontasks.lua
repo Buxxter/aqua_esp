@@ -1,92 +1,91 @@
 --on
 function relay1_on( ... )
-	gpio.write(RELAY_1, 1)
+	gpio.write(config.RELAY_1, 1)
 end
 
 function relay2_on( ... )
-	gpio.write(RELAY_2, 1)
+	gpio.write(config.RELAY_2, 1)
 end
 
 function relay3_on( ... )
-	gpio.write(RELAY_3, 1)
+	gpio.write(config.RELAY_3, 1)
 end
 
 function relay4_on( ... )
-	gpio.write(RELAY_4, 1)
+	gpio.write(config.RELAY_4, 1)
 end
 
 -- off
 function relay1_off( ... )
-	gpio.write(RELAY_1, 0)
+	gpio.write(config.RELAY_1, 0)
 end
 
 function relay2_off( ... )
-	gpio.write(RELAY_2, 0)
+	gpio.write(config.RELAY_2, 0)
 end
 
 function relay3_off( ... )
-	gpio.write(RELAY_3, 0)
+	gpio.write(config.RELAY_3, 0)
 end
 
 function relay4_off( ... )
-	gpio.write(RELAY_4, 0)
+	gpio.write(config.RELAY_4, 0)
 end
 
 -- help
 function light_low( ... )
 	relay2_on()
 	relay3_off()
-	mqttc.log("light low")
+	-- mqttc.log("light low")
 end
 
 function light_med( ... )
 	relay2_off()
 	relay3_on()
-	mqttc.log("light med")
+	-- mqttc.log("light med")
 end
 
 function light_hi( ... )
 	relay2_on()
 	relay3_on()
-	mqttc.log("light hi")
+	-- mqttc.log("light hi")
 end
 
 function light_off( ... )
 	relay2_off()
 	relay3_off()
-	mqttc.log("light off")
+	-- mqttc.log("light off")
 end
 
 function gas_on( ... )
 	relay1_on()
-	mqttc.log("gas on")
+	-- mqttc.log("gas on")
 end
 
 function gas_off( ... )
 	relay1_off()
-	mqttc.log("gas off")
+	-- mqttc.log("gas off")
 end
 
 
 function tick()
-  mqttc.log("tick")
+  -- mqttc.log("tick")
   print("tick")
 end
 
 
 -- load_lib("crontab")
 
---[[
-10:00	gas on
-10:30	light low
-11:30	light med
-12:00	light hi
-21:30	light med
-22:00	gas off
-22:30	light low
-00:00	light off
-
-]]--
+--
+-- 10:00	gas on
+-- 10:30	light low
+-- 11:30	light med
+-- 12:00	light hi
+-- 21:30	light med
+-- 22:00	gas off
+-- 22:30	light low
+-- 00:00	light off
+--
 
 CRONTABLE = {}
 crontab.add_or_update_task('gas_on', 	'*/5 10-21 * * *', gas_on, true)

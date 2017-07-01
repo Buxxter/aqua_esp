@@ -17,7 +17,7 @@ function load_lib(fname)
     end
 end
 
-load_lib("gpio_defines")
+-- load_lib("gpio_defines")
 -- load_lib("config")
 config = require("config")
 network = require("network")
@@ -26,11 +26,16 @@ rtc = nil
 cronutil = require("cronutil")
 crontab = require("crontab")
 
+cronutil.debug = false
 crontab.init()
+
+
 
 
 -- Configure
 network.connect()
+
+html_utils = require("html_utils")
 
 -- Button
 --load_lib('button')               -- call for new created button Module
